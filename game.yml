@@ -1,0 +1,62 @@
+name: brt
+root: ./
+
+pre_window: export ROBOVIZ_DIR=/home/qwerty/roboviz/;
+            export PROXY_DIR=/home/qwerty/magmaProxy/;
+            export BRT_BIN_DIR=/home/qwerty/3D/bahiart/;
+            export VSTEAM_BIN_DIR=/home/qwerty/3D/binarios_times/HFUTEngine2020/;
+            export TIME_1=30;
+            export TIME_2=15
+
+startup_window: roboviz
+
+windows:
+  - rcssserver:
+      layout: even-vertical
+      panes:
+        - '
+            sleep 5;
+            rcssserver3d
+          '
+  - roboviz:
+      layout: even-vertical
+      panes:
+        - '
+            $ROBOVIZ_DIR./roboviz.sh
+          '
+  - proxy_fcp:
+      layout: even-vertical
+      panes:
+        - '
+            sleep 14;
+            cd $PROXY_DIR;
+            sleep 2;
+            ./start.sh localhost 3800 3100 
+          '
+  - proxy_brt:
+      layout: even-vertical
+      panes:
+        - ' 
+            sleep 14;
+            cd $PROXY_DIR;
+            sleep 2;
+            ./start.sh localhost 3800 3500 
+          '
+  - bin_brt:
+      layout: even-vertical
+      panes:
+        - '
+            sleep $TIME_1;
+            cd $BRT_BIN_DIR;
+            sleep 2;
+            ./start.sh
+          '
+  - bin_vsteam:
+      layout: even-vertical
+      panes:
+        - '
+            sleep $TIME_2;
+            cd $VSTEAM_BIN_DIR;
+            sleep 2;
+            ./start.sh
+          '
